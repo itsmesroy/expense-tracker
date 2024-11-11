@@ -5,41 +5,58 @@ function IncomeModal({ isOpen, onClose, addIncome }) {
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit=(e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    if(!amount || isNaN(amount) ||amount<=0){
-        setError('Please enter a valid amount');
-        return;
+    if (!amount || isNaN(amount) || amount <= 0) {
+      setError("Please enter a valid amount");
+      return;
     }
     addIncome(parseFloat(amount));
-    setAmount('');
-    setError('');
+    setAmount("");
+    setError("");
     onClose();
+  };
 
-  }
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setAmount(value);
+    if (value && !isNaN(value) && parseFloat(value) > 0) {
+      setError("");
+    }
+  };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onClose} className="modal">
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      className="modal"
+      overlayClassName={`modal-overlay ${isOpen ? "open" : ""}`}
+      style={{width:'538px', height:"164px"}}
+    >
       <h2>Add Balance</h2>
       {error && <div className="error">{error}</div>}
-      <form onSubmit={handleSubmit} className="incomeForm">
+
+      <form onSubmit={handleSubmit} className="incomeForm"  style={{display:'flex', gap:'10px'}}>
         <input
           type="number"
           placeholder="Income Amount"
           value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          onChange={handleInputChange}
+          aria-label="Income Amount"
+          required
+          style={{width:'300px'}}
         />
-        <div>
-          <button type="submit" className="btn add-button">
+       
+          <button type="submit" className="btn add-button" style={{width:'145px', backgroundColor: '#4CAF50', color: 'white' }}>
             Add Balance
           </button>
-          <button type="button" onClick={onClose} className="btn cancel-button">
+          <button type="button" onClick={onClose} className="btn cancel-button" style={{width:'100px'}}>
             Cancel
           </button>
-        </div>
+     
       </form>
     </Modal>
   );
 }
+
 export default IncomeModal;
