@@ -5,10 +5,12 @@ import ExpenseModal from "./components/ExpenseModal";
 import ExpenseList from "./components/ExpenseList";
 import ExpenseSummary from "./components/ExpenseSummary";
 import ExpenseTrends from "./components/ExpenseTrends";
-import EditExpenseModal from "./components/EditExpenseModal";
 import DeleteExpenseModal from "./components/DeleteExpenseModal";
 
+import { useSnackbar } from "notistack";
+
 function App() {
+  const { enqueueSnackbar } = useSnackbar();
   const [walletBalance, setWalletBalance] = useState(5000);
   const [expenses, setExpenses] = useState([]);
   const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
@@ -16,7 +18,7 @@ function App() {
   const [isDeleteExpenseModalOpen, setIsDeleteExpenseModalOpen] =
     useState(false);
   const [expenseToEdit, setExpenseToEdit] = useState(null);
-  const [expenseToDelete, setExpenseToDelete] = useState(null); // To track expense to delete
+  const [expenseToDelete, setExpenseToDelete] = useState(null);
 
   useEffect(() => {
     const savedBalance = localStorage.getItem("walletBalance");
@@ -34,7 +36,6 @@ function App() {
     }
   }, [expenses.length]);
 
-  // Modal Toggling functions
   const openIncomeModal = () => setIsIncomeModalOpen(true);
   const closeIncomeModal = () => setIsIncomeModalOpen(false);
 
@@ -48,8 +49,8 @@ function App() {
 
   const closeEditExpenseModal = () => setIsExpenseModalOpen(false);
 
-  const openDeleteExpenseModal = (expense) => {
-    setExpenseToDelete(expense);
+  const openDeleteExpenseModal = (expenseId) => {
+    setExpenseToDelete(expenseId);
     setIsDeleteExpenseModalOpen(true);
   };
 
@@ -101,19 +102,50 @@ function App() {
               }}
             >
               <div className="wallet-balance" style={{ width: "50%" }}>
-                <h2>Wallet Balance: ₹{walletBalance}</h2>
-                <button onClick={openIncomeModal}>+ Add Income</button>
+                <h2 style={{ display: "flex" }}>
+                  <div style={{ color: "white" }}>Wallet Balance:</div> ₹
+                  {walletBalance}
+                </h2>
+                <button
+                  onClick={openIncomeModal}
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #B5DC52 0%, #89E148 100%)",
+                    color: "#fff",
+                    border: "none",
+                    padding: "10px 20px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                  }}
+                >
+                  + Add Income
+                </button>
               </div>
 
               <div className="add-expense" style={{ width: "50%" }}>
-                <h2>
-                  Expenses: ₹
+                <h2 style={{ display: "flex" }}>
+                  <div style={{ color: "white" }}>Expenses:</div>₹
                   {expenses.reduce(
                     (total, expense) => total + expense.amount,
                     0
                   )}
                 </h2>
-                <button onClick={openExpenseModal}>+ Add Expense</button>
+                <button
+                  onClick={openExpenseModal}
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #FF9595 0%, #FF4747 80%, #FF3838 100%)",
+                    color: "#fff",
+                    border: "none",
+                    padding: "10px 20px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                  }}
+                >
+                  + Add Expense
+                </button>
               </div>
             </div>
 
@@ -139,19 +171,25 @@ function App() {
               <ExpenseList
                 expenses={expenses}
                 onEdit={openEditExpenseModal}
-                onDelete={openDeleteExpenseModal}
+                onDelete={(id) => openDeleteExpenseModal(id)}
               />
             </div>
 
-            <div className="expense-trends" style={{ width: "40%" }}></div>
-            <div className="recent-transactions">
-              <ExpenseTrends expenses={expenses} />
+            <div
+              className="expense-trends"
+              style={{ width: "40%", height: "345px" }}
+            >
+              <div className="recent-transactions">
+                <ExpenseTrends
+                  expenses={expenses}
+                  style={{ width: "100%", height: "100%" }}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Modals */}
       <IncomeModal
         isOpen={isIncomeModalOpen}
         onClose={closeIncomeModal}
@@ -163,6 +201,8 @@ function App() {
         addExpense={addExpense}
         editExpense={editExpense}
         expenseToEdit={expenseToEdit}
+        walletBalance={walletBalance}
+        enqueueSnackbar={enqueueSnackbar}
       />
       <DeleteExpenseModal
         isOpen={isDeleteExpenseModalOpen}

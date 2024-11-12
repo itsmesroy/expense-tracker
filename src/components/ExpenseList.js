@@ -1,5 +1,5 @@
 import React from "react";
-import ExpenseItem from "./ExpenseItem"; // Assuming you have ExpenseItem to render each expense
+import ExpenseItem from "./ExpenseItem";
 
 function ExpenseList({ expenses, onEdit, onDelete }) {
   return (
@@ -11,8 +11,8 @@ function ExpenseList({ expenses, onEdit, onDelete }) {
           <ExpenseItem
             key={expense.id}
             expense={expense}
-            onEdit={() => onEdit(expense)}  // Pass the expense to the edit handler
-            onDelete={() => onDelete(expense.id)}  // Pass the expense to the delete handler
+            onEdit={onEdit}
+            onDelete={onDelete}
           />
         ))
       )}

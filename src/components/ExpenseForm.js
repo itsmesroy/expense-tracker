@@ -1,35 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 function ExpenseForm({ addExpense, closeExpenseModal, walletBalance }) {
-  const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState('');
-  const [category, setCategory] = useState('');
-  const [date, setDate] = useState('');
-  const [error, setError] = useState('');
+  const [title, setTitle] = useState("");
+  const [amount, setAmount] = useState("");
+  const [category, setCategory] = useState("");
+  const [date, setDate] = useState("");
+  const [error, setError] = useState("");
 
-  if (parseFloat(amount) > walletBalance) {
-    setError('Insufficient wallet balance.');
-    return;
-  }
-  
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate form fields
     if (!title || !amount || !category || !date) {
-      setError('Please fill out all fields.');
+      setError("Please fill out all fields.");
       return;
     }
 
-    if (isNaN(amount) || amount <= 0) {
-      setError('Please enter a valid amount.');
+
+    if (isNaN(amount) || parseFloat(amount) <= 0) {
+      setError("Please enter a valid amount.");
       return;
     }
 
-    // Add the expense
+
+    if (parseFloat(amount) > walletBalance) {
+      setError("Insufficient wallet balance.");
+      return;
+    }
+
+
     const newExpense = {
-      id: Date.now(), // Unique ID based on current timestamp
+      id: Date.now(),
       title,
       amount: parseFloat(amount),
       category,
@@ -41,15 +41,12 @@ function ExpenseForm({ addExpense, closeExpenseModal, walletBalance }) {
     closeExpenseModal();
   };
 
-  // Reset the form fields
   const resetForm = () => {
-    setTitle('');
-    setAmount('');
-    setCategory('');
-    setDate('');
-    setError('');
-
-    
+    setTitle("");
+    setAmount("");
+    setCategory("");
+    setDate("");
+    setError("");
   };
 
   return (
@@ -57,7 +54,8 @@ function ExpenseForm({ addExpense, closeExpenseModal, walletBalance }) {
       <h2>Add Expense</h2>
       {error && <div className="error">{error}</div>}
       <form onSubmit={handleSubmit} className="expense-form">
-        <div className="input-group">
+      <div className="input-group" style={{ display: "flex", gap: "10px" }}>
+       
           <input
             type="text"
             placeholder="Title"
@@ -70,7 +68,9 @@ function ExpenseForm({ addExpense, closeExpenseModal, walletBalance }) {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
+       
         </div>
+        <div style={{ display: "flex", gap: "10px" }}>
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
@@ -87,16 +87,18 @@ function ExpenseForm({ addExpense, closeExpenseModal, walletBalance }) {
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          placeholder='dd/mm/yyyy'
+          placeholder="dd/mm/yyyy"
         />
+        </div>
+
         <div className="modal-buttons">
-          <button type="submit" className="btn add-button">
+          <button type="submit" className="btn add-button" style={{ width: "250px" , backgroundColor:"#F4BB4A"}}>
             Add Expense
           </button>
           <button
             type="button"
             onClick={closeExpenseModal}
-            className="btn cancel-button"
+            className="btn cancel-button"style={{ width: "100px" }}
           >
             Cancel
           </button>

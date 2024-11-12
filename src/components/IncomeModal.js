@@ -31,12 +31,16 @@ function IncomeModal({ isOpen, onClose, addIncome }) {
       onRequestClose={onClose}
       className="modal"
       overlayClassName={`modal-overlay ${isOpen ? "open" : ""}`}
-      style={{width:'538px', height:"164px"}}
+      style={{ width: "538px", height: "164px" }}
     >
       <h2>Add Balance</h2>
       {error && <div className="error">{error}</div>}
 
-      <form onSubmit={handleSubmit} className="incomeForm"  style={{display:'flex', gap:'10px'}}>
+      <form
+        onSubmit={handleSubmit}
+        className="incomeForm"
+        style={{ display: "flex", gap: "10px" }}
+      >
         <input
           type="number"
           placeholder="Income Amount"
@@ -44,16 +48,24 @@ function IncomeModal({ isOpen, onClose, addIncome }) {
           onChange={handleInputChange}
           aria-label="Income Amount"
           required
-          style={{width:'300px'}}
+          style={{ width: "300px" }}
         />
-       
-          <button type="submit" className="btn add-button" style={{width:'145px', backgroundColor: '#4CAF50', color: 'white' }}>
-            Add Balance
-          </button>
-          <button type="button" onClick={onClose} className="btn cancel-button" style={{width:'100px'}}>
-            Cancel
-          </button>
-     
+
+        <button
+          type="submit"
+          className="btn add-button"
+          style={{ width: "145px", backgroundColor: "#F4BB4A", color: "white" }}
+        >
+          Add Balance
+        </button>
+        <button
+          type="button"
+          onClick={onClose}
+          className="btn cancel-button"
+          style={{ width: "100px" }}
+        >
+          Cancel
+        </button>
       </form>
     </Modal>
   );

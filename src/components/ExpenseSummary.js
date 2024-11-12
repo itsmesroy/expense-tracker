@@ -1,8 +1,7 @@
-import React from 'react';
-import { PieChart, Pie, Tooltip, Cell, Legend } from 'recharts';
+import React from "react";
+import { PieChart, Pie, Tooltip, Cell, Legend } from "recharts";
 
 function ExpenseSummary({ expenses }) {
-  // Aggregate expenses by category
   const categoryTotals = expenses.reduce((acc, expense) => {
     if (acc[expense.category]) {
       acc[expense.category] += expense.amount;
@@ -15,19 +14,18 @@ function ExpenseSummary({ expenses }) {
   if (expenses.length === 0) {
     return <p>No expenses to summarize.</p>;
   }
-  
-  // Prepare data for PieChart
+
+  const COLORS = ["#ff6666", "#66b3ff", "#99ff99", "#ffcc99", "#ffccff"];
+
   const data = Object.keys(categoryTotals).map((category) => ({
     name: category,
     value: categoryTotals[category],
   }));
-
-  // Define colors for the chart slices
-  const COLORS = ['#ff6666', '#66b3ff', '#99ff99', '#ffcc99', '#ffccff'];
-
   return (
-    <div className="expense-summary" style={{ width: '250px', height: '250px', padding: '10px' }}>
-      
+    <div
+      className="expense-summary"
+      style={{ width: "250px", height: "250px", padding: "10px" }}
+    >
       <PieChart width={230} height={230}>
         <Pie
           data={data}
@@ -40,9 +38,8 @@ function ExpenseSummary({ expenses }) {
           paddingAngle={5}
           options={{
             responsive: true,
-            maintainAspectRatio: false,  
+            maintainAspectRatio: false,
           }}
-         
         >
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
