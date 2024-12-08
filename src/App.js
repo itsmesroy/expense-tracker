@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import IncomeModal from "./components/IncomeModal";
-import ExpenseModal from "./components/ExpenseModal";
+import ExpenseModal from "./components/ExpenseModal.js";
 import ExpenseList from "./components/ExpenseList";
 import ExpenseSummary from "./components/ExpenseSummary";
 import ExpenseTrends from "./components/ExpenseTrends";
@@ -21,18 +21,22 @@ function App() {
   const [expenseToDelete, setExpenseToDelete] = useState(null);
 
   useEffect(() => {
-    const savedBalance = localStorage.getItem("walletBalance");
-    const savedExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
-
-    if (savedBalance) {
-      const parsedBalance = parseFloat(savedBalance);
-      if (!isNaN(parsedBalance)) {
-        setWalletBalance(parsedBalance);
+    try {
+      const savedBalance = localStorage.getItem("walletBalance");
+      const savedExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
+  
+      if (savedBalance) {
+        const parsedBalance = parseFloat(savedBalance);
+        if (!isNaN(parsedBalance)) {
+          setWalletBalance(parsedBalance);
+        }
       }
-    }
-
-    if (savedExpenses.length !== expenses.length) {
-      setExpenses(savedExpenses);
+  
+      if (savedExpenses.length !== expenses.length) {
+        setExpenses(savedExpenses);
+      }
+    } catch (error) {
+      console.error("Error accessing localStorage:", error);
     }
   }, [expenses.length]);
 

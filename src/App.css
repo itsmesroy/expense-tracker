@@ -1,3 +1,13 @@
+:root {
+  --primary-bg: #3b3b3b;
+  --secondary-bg: #d1d1d1;
+  --accent-bg: #9b9b9b;
+  --text-color: #ffffff;
+  --highlight-green: #9dff5b;
+  --highlight-yellow: #f4bb4a;
+  --error-red: #f44336;
+}
+
 h1,
 h2 {
   font-family: "Arial", sans-serif;
@@ -7,20 +17,20 @@ h2 {
   margin: 0 auto;
   padding: 20px;
   text-align: center;
-  background: #3b3b3b;
+  background: var(--primary-bg);
 }
 
 .app-title {
   font-size: 2rem;
   font-weight: bold;
-  color: #ffffff;
+  color: var(--text-color);
   margin-left: 0;
   padding-left: 20px;
   text-align: left;
 }
 
 .outer-box {
-  background-color: #d1d1d1;
+  background-color: var(--secondary-bg);
   padding: 20px;
   border-radius: 15px;
   margin-bottom: 40px;
@@ -30,52 +40,56 @@ h2 {
   background-color: #626262;
   padding: 20px;
   border-radius: 15px;
-  width: 1211 px;
-  height: 269px;
+  width: 100%;
+  max-width: 1211px;
+  min-height: 269px;
 }
 
 .top-row {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.top-row .wallet-balance,
-.top-row .add-expense {
-  background-color: #9b9b9b;
+.wallet-balance,
+.add-expense {
+  background-color: var(--accent-bg);
   border-radius: 15px;
   padding: 20px;
   flex: 1;
-  margin: 0 10px;
+  margin: 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  min-width: 240px;
 }
 
 .wallet-balance h2 {
   margin-bottom: 20px;
-  color: #9dff5b;
+  color: var(--highlight-green);
 }
+
 .add-expense h2 {
   margin-bottom: 20px;
-  color: #f4bb4a;
+  color: var(--highlight-yellow);
 }
 
 .recent-transactions {
-  background-color: #ffffff;
+  background-color: var(--text-color);
   border-radius: 15px;
-
   padding: 20px;
   flex: 1;
   margin: 0 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.recent-transactions h2,
-.expense-trends h2 {
+.recent-transactions h2 {
   margin-bottom: 20px;
 }
 
 .recent-transactions ul {
   list-style-type: none;
+  padding: 0;
 }
 
 .recent-transactions li {
@@ -84,8 +98,8 @@ h2 {
 }
 
 .recent-transactions button {
-  background-color: #f44336;
-  color: white;
+  background-color: var(--error-red);
+  color: var(--text-color);
   padding: 10px;
   border: none;
   border-radius: 10px;
@@ -116,19 +130,24 @@ h2 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: var(--text-color);
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   z-index: 1001;
-  width: 100%;
+  width: 90%;
   max-width: 500px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .modal-buttons button {
   width: 48%;
   padding: 10px;
-  margin: 10px 0;
   border-radius: 10px;
   border: none;
   cursor: pointer;
@@ -159,81 +178,16 @@ h2 {
   font-weight: bold;
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 10px;
+/* Responsive Styles */
+@media(min-width: 320px) and (max-width: 844px){
+  .App{ 
+    width:820px;
   }
 
-  .inner-box {
-    flex-direction: column;
-    align-items: center;
+  .top-row .add-expense{
+    margin-right:70px;
   }
-
-  .top-row {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .wallet-balance,
-  .add-expense {
-    width: 100%;
-    text-align: center;
-  }
-
-  h2 {
-    font-size: 1.2rem;
-  }
-
-  .modal {
-    width: 90%;
-    height: auto;
-    padding: 15px;
-    margin: 20px auto;
-    overflow-y: auto;
-  }
-
-  .modal-buttons {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
-
-  .btn {
-    font-size: 1rem;
-    padding: 10px;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  .recent-transactions {
-    width: 100%;
-    padding: 10px 0;
-  }
-
-  .expense-item {
-    padding: 10px;
-    font-size: 0.9rem;
-  }
-
-  .expense-actions button {
-    padding: 5px 10px;
-  }
-
-  button {
-    padding: 10px 15px;
-    font-size: 1rem;
-  }
-
-  h1,
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  input,
-  select {
-    font-size: 1rem;
-    padding: 10px;
+  .top-row .wallet-balance{
+    margin-right:65px;
   }
 }

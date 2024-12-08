@@ -21,7 +21,7 @@ function ExpenseSummary({ expenses }) {
     name: category,
     value: categoryTotals[category],
   }));
-  return (
+  return(
     <div
       className="expense-summary"
       style={{ width: "250px", height: "250px", padding: "10px" }}

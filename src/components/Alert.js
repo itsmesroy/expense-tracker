@@ -2,37 +2,23 @@ import React from "react";
 import { useSnackbar } from "notistack";
 
 function Alert() {
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar;
 
-  const showSuccess = (message) => {
+  const successMessage = (message) => {
     enqueueSnackbar(message, { variant: "success" });
   };
-  const showError = (message) => {
+  const errorMessage = (message) => {
     enqueueSnackbar(message, { variant: "error" });
   };
-  const showInfo = (message) => {
-    enqueueSnackbar(message, { variant: "info" });
-  };
-  const showWarning = (message) => {
-    enqueueSnackbar(message, { variant: "warning" });
-  };
-
-  return (
+  return(
     <div>
-      <button onClick={() => showSuccess("This is a success message!")}>
-        Show Success
+      <button onClick={() => successMessage("This is a success message")}>
+        Success
       </button>
-      <button onClick={() => showError("This is an error message!")}>
-        Show Error
-      </button>
-      <button onClick={() => showInfo("This is an info message!")}>
-        Show Info
-      </button>
-      <button onClick={() => showWarning("This is a warning message!")}>
-        Show Warning
+      <button onClick={() => errorMessage("This is an error message")}>
+        Error
       </button>
     </div>
   );
 }
-
 export default Alert;

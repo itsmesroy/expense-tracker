@@ -1,21 +1,19 @@
+
 import React from "react";
 import ExpenseItem from "./ExpenseItem";
 
-function ExpenseList({ expenses, onEdit, onDelete }) {
+function ExpenseList( {expenses, onEdit, onDelete} ){
+    if (!Array.isArray(expenses) || expenses.length === 0) {
+        return <p>No expenses found.</p>;
+      }
   return (
     <div className="expense-list">
-      {expenses.length === 0 ? (
-        <p>No expenses added yet.</p>
-      ) : (
-        expenses.map((expense) => (
-          <ExpenseItem
-            key={expense.id}
-            expense={expense}
-            onEdit={onEdit}
-            onDelete={onDelete}
+    
+        {expenses.map((expense) => (
+          <ExpenseItem key={expense.id} expense={expense} onDelete={onDelete} onEdit={onEdit}
           />
         ))
-      )}
+}
     </div>
   );
 }

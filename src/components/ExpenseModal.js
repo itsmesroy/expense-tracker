@@ -2,29 +2,37 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import "../App.css";
 import ExpenseForm from "./ExpenseForm";
-
 function ExpenseModal({
   isOpen,
   onClose,
   addExpense,
   editExpense,
   expenseToEdit,
-  walletBalance,    
-  enqueueSnackbar    
+  walletBalance,
+  enqueueSnackbar,
 }) {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
-  const [category, setCategory] = useState("Food");
+  const [category, setCategory] = useState("");
   const [date, setDate] = useState("");
 
   useEffect(() => {
     if (expenseToEdit) {
-      setTitle(expenseToEdit.title);
-      setAmount(expenseToEdit.amount.toString());
-      setCategory(expenseToEdit.category);
-      setDate(expenseToEdit.date);
+      setTitle(expenseToEdit.title || "");
+      setAmount(expenseToEdit.amount?.toString() || "");
+      setCategory(expenseToEdit.category || "");
+      setDate(expenseToEdit.date || "");
+    } else {
+      resetModalState();
     }
-  }, [expenseToEdit]);
+  }, [expenseToEdit, isOpen]);
+
+  const resetModalState = () => {
+    setTitle("");
+    setAmount("");
+    setCategory("");
+    setDate("");
+  };
 
   const handleSubmit = (expense) => {
     if (expenseToEdit) {
@@ -33,23 +41,28 @@ function ExpenseModal({
       addExpense(expense);
     }
     onClose();
+    resetModalState();
   };
 
-  return (
+  const handleClose = () => {
+    onClose();
+    resetModalState();
+  };
+
+  return(
     <Modal
       isOpen={isOpen}
-      onRequestClose={onClose}
+      onRequestClose={handleClose}
       className="modal"
       overlayClassName={`modal-overlay ${isOpen ? "open" : ""}`}
     >
       <h2>{expenseToEdit ? "Edit Expense" : "Add Expense"}</h2>
-
       <ExpenseForm
         addExpense={handleSubmit}
-        closeExpenseModal={onClose}
-        walletBalance={walletBalance}        
-        enqueueSnackbar={enqueueSnackbar}     
-        expenseToEdit={expenseToEdit}        
+        closeExpenseModal={handleClose}
+        walletBalance={walletBalance}
+        enqueueSnackbar={enqueueSnackbar}
+        expenseToEdit={{ title, amount, category, date }}
       />
     </Modal>
   );

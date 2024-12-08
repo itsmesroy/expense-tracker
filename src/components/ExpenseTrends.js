@@ -29,7 +29,7 @@ function ExpenseTrends({ expenses }) {
     value: groupedByCategory[category],
   }));
 
-  return (
+  return(
     <div className="expense-trends">
       <h2 style={{ fontStyle: "italic" }}>Top Expenses</h2>
       <ResponsiveContainer width="80%" height={250}>

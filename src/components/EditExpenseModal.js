@@ -55,7 +55,7 @@ function EditExpenseModal({ isOpen, onClose, expenseToEdit, editExpense }) {
     onClose();
   };
 
-  return (
+  return(
     <Modal
       isOpen={isOpen}
       onRequestClose={onClose}

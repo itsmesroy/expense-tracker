@@ -5,7 +5,7 @@ import editIcon from "../assets/editIcon.png";
 function ExpenseItem({ expense, onEdit, onDelete }) {
   const { title, amount, date } = expense;
 
-  return (
+  return(
     <div
       className="expense-item"
       style={{

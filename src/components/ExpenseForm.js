@@ -49,7 +49,7 @@ function ExpenseForm({ addExpense, closeExpenseModal, walletBalance }) {
     setError("");
   };
 
-  return (
+  return(
     <div className="modal">
       <h2>Add Expense</h2>
       {error && <div className="error">{error}</div>}
