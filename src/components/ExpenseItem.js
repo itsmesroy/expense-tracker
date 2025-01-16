@@ -24,7 +24,7 @@ function ExpenseItem({ expense, onEdit, onDelete }) {
           alignItems: "flex-start",
         }}
       >
-        <p style={{ fontWeight: "bold", marginBottom: "5px" }}>{title}</p>
+        <h2 style={{ fontWeight: "bold", marginBottom: "5px" }}>{title}</h2>
         <p style={{ color: "#888", fontSize: "0.9em" }}>
           {new Date(date).toLocaleDateString()}
         </p>
