@@ -85,6 +85,7 @@ function ExpenseForm({ addExpense, closeExpenseModal, walletBalance }) {
           <option value="Entertainment">Entertainment</option>
           <option value="Shopping">Shopping</option>
           <option value="Bills">Bills</option>
+          <option value="Travel">Travel</option>
         </select>
         <input
           type="date"
