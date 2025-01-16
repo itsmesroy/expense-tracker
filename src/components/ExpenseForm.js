@@ -58,13 +58,15 @@ function ExpenseForm({ addExpense, closeExpenseModal, walletBalance }) {
        
           <input
             type="text"
-            placeholder="Title"
+            placeholder="title"
+            name="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
           <input
             type="number"
-            placeholder="Price"
+            placeholder="price"
+            name="price"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
@@ -73,6 +75,7 @@ function ExpenseForm({ addExpense, closeExpenseModal, walletBalance }) {
         <div style={{ display: "flex", gap: "10px" }}>
         <select
           value={category}
+          name="category"
           onChange={(e) => setCategory(e.target.value)}
           placeholder="Select Category"
         >
@@ -86,6 +89,7 @@ function ExpenseForm({ addExpense, closeExpenseModal, walletBalance }) {
         <input
           type="date"
           value={date}
+          name="date"
           onChange={(e) => setDate(e.target.value)}
           placeholder="dd/mm/yyyy"
         />

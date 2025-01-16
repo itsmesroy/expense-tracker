@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 
 function EditExpenseModal({ isOpen, onClose, expenseToEdit, editExpense }) {
+
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("Food");
@@ -34,7 +35,7 @@ function EditExpenseModal({ isOpen, onClose, expenseToEdit, editExpense }) {
       return;
     }
     if (isNaN(amount) || amount <= 0) {
-      setError("Please enter a valid amount.");
+      setError("Enter a valid amount.");
       return;
     }
 
@@ -92,9 +93,9 @@ function EditExpenseModal({ isOpen, onClose, expenseToEdit, editExpense }) {
           aria-label="Expense Category"
           required
         >
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
+          {categories.map((idx) => (
+            <option key={idx} value={idx}>
+              {idx}
             </option>
           ))}
         </select>

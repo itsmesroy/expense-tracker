@@ -10,13 +10,13 @@ import DeleteExpenseModal from "./components/DeleteExpenseModal";
 import { useSnackbar } from "notistack";
 
 function App() {
+
   const { enqueueSnackbar } = useSnackbar();
   const [walletBalance, setWalletBalance] = useState(5000);
   const [expenses, setExpenses] = useState([]);
   const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
   const [isIncomeModalOpen, setIsIncomeModalOpen] = useState(false);
-  const [isDeleteExpenseModalOpen, setIsDeleteExpenseModalOpen] =
-    useState(false);
+  const [isDeleteExpenseModalOpen, setIsDeleteExpenseModalOpen] =useState(false);
   const [expenseToEdit, setExpenseToEdit] = useState(null);
   const [expenseToDelete, setExpenseToDelete] = useState(null);
 
@@ -92,43 +92,38 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="app-title">Expense Tracker</h1>
-      <div className="container">
-        <div className="inner-box">
-          <div className="top-row">
-            <div
-              style={{
-                display: "flex",
-                gap: "10px",
-                margin: "15px",
-                width: "760px",
-                height: "181px",
-              }}
-            >
-              <div className="wallet-balance" style={{ width: "50%" }}>
-                <h2 style={{ display: "flex" }}>
-                  <div style={{ color: "white" }}>Wallet Balance:</div> ₹
-                  {walletBalance}
-                </h2>
-                <button
-                  onClick={openIncomeModal}
-                  style={{
-                    background:
-                      "linear-gradient(90deg, #B5DC52 0%, #89E148 100%)",
-                    color: "#fff",
-                    border: "none",
-                    padding: "10px 20px",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                    fontWeight: "bold",
-                  }}
-                >
-                  + Add Income
-                </button>
-              </div>
+        <h1>Expense Tracker</h1>
+      <div className="Container">
 
-              <div className="add-expense" style={{ width: "50%" }}>
-                <h2 style={{ display: "flex" }}>
+        <div className="row align-items-center ">
+          <div className="col-sm">
+            <div className="wallet-balance">
+              <h2>
+                Wallet Balance: ₹ {walletBalance}
+              </h2>
+              <button
+                className="button"
+                type="button"
+                style={{
+                  background:
+                    "linear-gradient(90deg, #B5DC52 0%, #89E148 100%)",
+                  color: "#fff",
+                  border: "none",
+                  padding: "10px 20px",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                }}
+                onClick={openIncomeModal} >
+                + Add Income
+              </button>
+
+            </div>
+          </div>
+
+          <div className="col-sm">
+            <div className="add-expense">              
+            <h2 style={{ display: "flex" }}>
                   <div style={{ color: "white" }}>Expenses:</div>₹
                   {expenses.reduce(
                     (total, expense) => total + expense.amount,
@@ -149,27 +144,17 @@ function App() {
                   }}
                 >
                   + Add Expense
-                </button>
-              </div>
+                </button>    
             </div>
-
-            <ExpenseSummary expenses={expenses} />
+          </div>
+          <div className="col-sm">
+        <ExpenseSummary expenses={expenses} />
           </div>
         </div>
 
-        <div>
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-              margin: "5px",
-              width: "100%",
-              height: "345px",
-            }}
-          >
+        <div className="lower-section">         
             <div
-              className="recent-transactions"
-              style={{ width: "60%", paddingRight: "10px" }}
+              className="recent-transactions"            
             >
               <h2 style={{ fontStyle: "italic" }}>Recent Transactions</h2>
               <ExpenseList
@@ -190,30 +175,30 @@ function App() {
                 />
               </div>
             </div>
-          </div>
+       
         </div>
-      </div>
 
+      </div>
       <IncomeModal
-        isOpen={isIncomeModalOpen}
-        onClose={closeIncomeModal}
-        addIncome={addIncome}
-      />
+      isOpen={isIncomeModalOpen}
+      onClose={closeIncomeModal}
+      addIncome={addIncome}/>
+      
       <ExpenseModal
-        isOpen={isExpenseModalOpen}
-        onClose={closeEditExpenseModal}
-        addExpense={addExpense}
-        editExpense={editExpense}
-        expenseToEdit={expenseToEdit}
-        walletBalance={walletBalance}
-        enqueueSnackbar={enqueueSnackbar}
-      />
-      <DeleteExpenseModal
+      isOpen={isExpenseModalOpen}
+      onClose={closeEditExpenseModal}
+      addExpense={addExpense}
+      editExpense={editExpense}
+      expenseToEdit={expenseToEdit}
+      walletBalance={walletBalance}
+      enqueueSnackbar={enqueueSnackbar}/>
+
+<DeleteExpenseModal
         isOpen={isDeleteExpenseModalOpen}
         onClose={closeDeleteExpenseModal}
         onDelete={removeExpense}
         expenseId={expenseToDelete}
-      />
+      /> 
     </div>
   );
 }

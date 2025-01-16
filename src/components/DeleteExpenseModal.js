@@ -8,7 +8,7 @@ function DeleteExpenseModal( {expenseId, isOpen, onClose, onDelete}){
         onDelete(expenseId)
     };
     return(
-        <Modal isOpen={isOpen} onRequestClose={onClose}>
+        <Modal className="modal"isOpen={isOpen} onRequestClose={onClose} >
             <h2>Do you want to delete this expense?</h2>
             <button onClick={handleDelete} className="modal-buttons">
                Delete
