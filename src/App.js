@@ -67,18 +67,50 @@ function App() {
   };
 
   const addExpense = (expense) => {
+    const expenseAmount = parseFloat(expense.amount);
+
+    if (expenseAmount > walletBalance) {
+      enqueueSnackbar("Insufficient wallet balance to add this expense.", {
+        variant: "error",
+      });
+      return;
+    }
+  
     const newExpense = { ...expense, id: new Date().getTime() };
     const newExpenses = [...expenses, newExpense];
     setExpenses(newExpenses);
+    setWalletBalance(walletBalance - expenseAmount);
+  
     localStorage.setItem("expenses", JSON.stringify(newExpenses));
+    localStorage.setItem("walletBalance", walletBalance - expenseAmount);
   };
 
   const editExpense = (updatedExpense) => {
-    const updatedExpenses = expenses.map((expense) =>
-      expense.id === updatedExpense.id ? updatedExpense : expense
-    );
-    setExpenses(updatedExpenses);
-    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+    
+  const originalExpense = expenses.find(
+    (expense) => expense.id === updatedExpense.id
+  );
+  const originalAmount = parseFloat(originalExpense.amount);
+  const updatedAmount = parseFloat(updatedExpense.amount);
+
+  const balanceAdjustment = updatedAmount - originalAmount;
+
+  if (balanceAdjustment > walletBalance) {
+    enqueueSnackbar("Insufficient wallet balance to update this expense.", {
+      variant: "error",
+    });
+    return;
+  }
+
+  const updatedExpenses = expenses.map((expense) =>
+    expense.id === updatedExpense.id ? updatedExpense : expense
+  );
+
+  setExpenses(updatedExpenses);
+  setWalletBalance(walletBalance - balanceAdjustment);
+
+  localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+  localStorage.setItem("walletBalance", walletBalance - balanceAdjustment);
   };
 
   const removeExpense = (expenseId) => {
@@ -124,7 +156,7 @@ function App() {
           <div className="col-sm">
             <div className="add-expense">              
             <h2 style={{ display: "flex" }}>
-                  <div style={{ color: "white" }}>Expenses:</div>₹
+                  <div >Expenses:</div>₹
                   {expenses.reduce(
                     (total, expense) => total + expense.amount,
                     0
@@ -169,6 +201,7 @@ function App() {
               style={{ width: "40%", height: "345px" }}
             >
               <div className="recent-transactions">
+              <h2 style={{ fontStyle: "italic" }}>Top Expenses</h2>
                 <ExpenseTrends
                   expenses={expenses}
                   style={{ width: "100%", height: "100%" }}

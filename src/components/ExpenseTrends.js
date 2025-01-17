@@ -31,7 +31,7 @@ function ExpenseTrends({ expenses }) {
 
   return(
     <div className="expense-trends">
-      <h2 style={{ fontStyle: "italic" }}>Top Expenses</h2>
+     
       <ResponsiveContainer width="80%" height={250}>
         <BarChart data={data} layout="vertical">
           <CartesianGrid strokeDasharray="3 3" />

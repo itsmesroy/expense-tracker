@@ -35,11 +35,23 @@ function ExpenseModal({
   };
 
   const handleSubmit = (expense) => {
-    if (expenseToEdit) {
-      editExpense(expense);
-    } else {
-      addExpense(expense);
+   const expenseAmount= parseFloat(expense.amount);
+
+   if(!expenseToEdit && expenseAmount >walletBalance){
+    enqueueSnackbar("Insufficient balance", { variant: "error" });
+    return;
+   }
+   if (expenseToEdit) {
+    const difference= expenseAmount-parseFloat(expenseToEdit.amount);
+    if(walletBalance-difference<0){
+      enqueueSnackbar("Insufficient balance", { variant: "error" });
+      return;
     }
+    editExpense(expense);
+   }else{
+    addExpense(expense);
+   }
+
     onClose();
     resetModalState();
   };
